@@ -1,0 +1,30 @@
+# Get the ProgramFilesDir value from the registry
+{% set programfiles = salt['reg.read_key']('HKEY_LOCAL_MACHINE', 'SOFTWARE\Microsoft\Windows\CurrentVersion', 'ProgramFilesDir') %}
+
+# Initialize a map of default values
+{% set default = {
+    'package' : 'Splunk Forwarder',
+    'deploymentclient' : programfiles ~ '\\SplunkUniversalForwarder\\etc\\system\\local\\deploymentclient.conf',
+    'deploymentclient_source' : '',
+    'deploymentclient_source_hash' : '',
+    'log_local' : programfiles ~ '\\SplunkUniversalForwarder\\etc\\log-local.cfg',
+    'log_local_source' : '',
+    'log_local_source_hash' : '',
+    'service' : 'SplunkForwarder',
+} %}
+
+# Define the splunkforwarder map, merging pillar and default values
+{% set splunkforwarder = {
+    'package' : salt['pillar.get'](
+        'splunkforwarder-windows:package',
+        default.package),
+    'deploymentclient' : default.deploymentclient,
+    'deploymentclient_source' : pillar['splunkforwarder-windows']['deploymentclient']['source'],
+    'deploymentclient_source_hash' : pillar['splunkforwarder-windows']['deploymentclient']['source_hash'],
+    'log_local' : default.log_local,
+    'log_local_source' : pillar['splunkforwarder-windows']['log_local']['source'],
+    'log_local_source_hash' : pillar['splunkforwarder-windows']['log_local']['source_hash'],
+    'service' : salt['pillar.get'](
+        'splunkforwarder-windows:service',
+        default.service),
+} %}
