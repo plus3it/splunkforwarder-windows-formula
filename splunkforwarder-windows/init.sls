@@ -13,6 +13,7 @@ splunkforwarder-deploymentclient.conf:
     - name: {{ splunkforwarder.deploymentclient }}
     - source: {{ splunkforwarder.deploymentclient_source }}
     - source_hash: {{ splunkforwarder.deploymentclient_source_hash }}
+    - makedirs: True
     - watch_in:
       - service: service-splunkforwarder
 
@@ -21,6 +22,7 @@ splunkforwarder-log-local.cfg:
     - name: {{ splunkforwarder.log_local }}
     - source: {{ splunkforwarder.log_local_source }}
     - source_hash: {{ splunkforwarder.log_local_source_hash }}
+    - makedirs: True
     - watch_in:
       - service: splunkforwarder-service
 
