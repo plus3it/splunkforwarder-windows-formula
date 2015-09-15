@@ -15,7 +15,7 @@ splunkforwarder-deploymentclient.conf:
     - source_hash: {{ splunkforwarder.deploymentclient_source_hash }}
     - makedirs: True
     - watch_in:
-      - service: service-splunkforwarder
+      - service: splunkforwarder-service
 
 splunkforwarder-log-local.cfg:
   file.managed:
