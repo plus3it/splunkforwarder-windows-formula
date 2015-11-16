@@ -1,5 +1,5 @@
 # Get the ProgramFilesDir value from the registry
-{% set programfiles = salt['reg.read_key']('HKEY_LOCAL_MACHINE', 'SOFTWARE\Microsoft\Windows\CurrentVersion', 'ProgramFilesDir') %}
+{% set programfiles = salt['reg.read_value']('HKEY_LOCAL_MACHINE', 'SOFTWARE\Microsoft\Windows\CurrentVersion', 'ProgramFilesDir').vdata %}
 
 # Initialize a map of default values
 {% set default = {
