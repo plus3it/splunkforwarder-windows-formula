@@ -1,4 +1,4 @@
-splunkforwarder-windows:
+splunkforwarder:
 
 
   #############################################################
@@ -30,7 +30,7 @@ splunkforwarder-windows:
 
   # `package` is the name of the winrepo package containing the
   # splunkforwarder
-  #package: 'Splunk Forwarder'
+  #package: 'splunkforwarder'
   
   # `service` is the name of the splunkforwarder service
   #service: 'SplunkForwarder'

@@ -3,7 +3,7 @@
 
 # Initialize a map of default values
 {% set default = {
-    'package' : 'Splunk Forwarder',
+    'package' : 'splunkforwarder',
     'deploymentclient' : programfiles ~ '\\SplunkUniversalForwarder\\etc\\system\\local\\deploymentclient.conf',
     'deploymentclient_source' : '',
     'deploymentclient_source_hash' : '',
@@ -16,15 +16,15 @@
 # Define the splunkforwarder map, merging pillar and default values
 {% set splunkforwarder = {
     'package' : salt['pillar.get'](
-        'splunkforwarder-windows:package',
+        'splunkforwarder:package',
         default.package),
     'deploymentclient' : default.deploymentclient,
-    'deploymentclient_source' : pillar['splunkforwarder-windows']['deploymentclient']['source'],
-    'deploymentclient_source_hash' : pillar['splunkforwarder-windows']['deploymentclient']['source_hash'],
+    'deploymentclient_source' : pillar['splunkforwarder']['deploymentclient']['source'],
+    'deploymentclient_source_hash' : pillar['splunkforwarder']['deploymentclient']['source_hash'],
     'log_local' : default.log_local,
-    'log_local_source' : pillar['splunkforwarder-windows']['log_local']['source'],
-    'log_local_source_hash' : pillar['splunkforwarder-windows']['log_local']['source_hash'],
+    'log_local_source' : pillar['splunkforwarder']['log_local']['source'],
+    'log_local_source_hash' : pillar['splunkforwarder']['log_local']['source_hash'],
     'service' : salt['pillar.get'](
-        'splunkforwarder-windows:service',
+        'splunkforwarder:service',
         default.service),
 } %}
