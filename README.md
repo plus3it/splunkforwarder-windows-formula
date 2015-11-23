@@ -18,7 +18,7 @@ Install and configure the Splunk Universal Forwarder for Windows.
 This formula requires configuration via pillar. If the required parameters are
 not configured in pillar, the formula will fail.
 
-### splunkforwarder:deploymentclient
+### splunkforwarder:lookup:deploymentclient
 
 This parameter is a map containing the `source` and `source_hash` of the
 deploymentclient.conf file.
@@ -29,12 +29,13 @@ deploymentclient.conf file.
 
 ```
 splunkforwarder:
-  deploymentclient:
-    source: 'https://path/to/my/deploymentclient.conf'
-    source_hash: 'https://path/to/my/deploymentclient.conf.HASH'
+  lookup:
+    deploymentclient:
+      source: 'https://path/to/my/deploymentclient.conf'
+      source_hash: 'https://path/to/my/deploymentclient.conf.HASH'
 ```
 
-### splunkforwarder:log_local
+### splunkforwarder:lookup:log_local
 
 This parameter is a map containing the `source` and `source_hash` of the
 log-local.cfg file.
@@ -45,12 +46,13 @@ log-local.cfg file.
 
 ```
 splunkforwarder:
-  log_local:
-    source: 'https://path/to/my/log-local.cfg'
-    source_hash: 'https://path/to/my/log-local.cfg.HASH'
+  lookup:
+    log_local:
+      source: 'https://path/to/my/log-local.cfg'
+      source_hash: 'https://path/to/my/log-local.cfg.HASH'
 ```
 
-### splunkforwarder:package
+### splunkforwarder:lookup:package
 
 The `package` parameter is the name of the package as defined in the winrepo
 package definition.
@@ -63,10 +65,11 @@ package definition.
 
 ```
 splunkforwarder:
-  package: 'splunkforwarder'
+  lookup:
+    package: 'splunkforwarder'
 ```
 
-### splunkforwarder:server
+### splunkforwarder:lookup:server
 
 The `service` parameter is the name of the Windows service for the Splunk
 Universal Forwarder.
@@ -79,5 +82,6 @@ Universal Forwarder.
 
 ```
 splunkforwarder:
-  service: 'SplunkForwarder'
+  lookup:
+    service: 'SplunkForwarder'
 ```

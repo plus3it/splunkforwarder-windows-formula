@@ -2,29 +2,29 @@
 {% set programfiles = salt['reg.read_value']('HKEY_LOCAL_MACHINE', 'SOFTWARE\Microsoft\Windows\CurrentVersion', 'ProgramFilesDir').vdata %}
 
 # Initialize a map of default values
-{% set default = {
-    'package' : 'splunkforwarder',
-    'deploymentclient' : programfiles ~ '\\SplunkUniversalForwarder\\etc\\system\\local\\deploymentclient.conf',
-    'deploymentclient_source' : '',
-    'deploymentclient_source_hash' : '',
-    'log_local' : programfiles ~ '\\SplunkUniversalForwarder\\etc\\log-local.cfg',
-    'log_local_source' : '',
-    'log_local_source_hash' : '',
-    'service' : 'SplunkForwarder',
-} %}
+{% load_yaml as defaults %}
+package: 'splunkforwarder'
+deploymentclient: programfiles ~ '\\SplunkUniversalForwarder\\etc\\system\\local\\deploymentclient.conf'
+deploymentclient_source: ''
+deploymentclient_source_hash: ''
+log_local: programfiles ~ '\\SplunkUniversalForwarder\\etc\\log-local.cfg'
+log_local_source: ''
+log_local_source_hash: ''
+service: 'SplunkForwarder'
+{% endload %}
 
 # Define the splunkforwarder map, merging pillar and default values
 {% set splunkforwarder = {
     'package' : salt['pillar.get'](
-        'splunkforwarder:package',
-        default.package),
-    'deploymentclient' : default.deploymentclient,
-    'deploymentclient_source' : pillar['splunkforwarder']['deploymentclient']['source'],
-    'deploymentclient_source_hash' : pillar['splunkforwarder']['deploymentclient']['source_hash'],
-    'log_local' : default.log_local,
-    'log_local_source' : pillar['splunkforwarder']['log_local']['source'],
-    'log_local_source_hash' : pillar['splunkforwarder']['log_local']['source_hash'],
+        'splunkforwarder:lookup:package',
+        defaults.package),
+    'deploymentclient' : defaults.deploymentclient,
+    'deploymentclient_source' : pillar['splunkforwarder']['lookup']['deploymentclient']['source'],
+    'deploymentclient_source_hash' : pillar['splunkforwarder']['lookup']['deploymentclient']['source_hash'],
+    'log_local' : defaults.log_local,
+    'log_local_source' : pillar['splunkforwarder']['lookup']['log_local']['source'],
+    'log_local_source_hash' : pillar['splunkforwarder']['lookup']['log_local']['source_hash'],
     'service' : salt['pillar.get'](
-        'splunkforwarder:service',
-        default.service),
+        'splunkforwarder:lookup:service',
+        defaults.service),
 } %}
