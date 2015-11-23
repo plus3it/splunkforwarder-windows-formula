@@ -69,7 +69,7 @@ splunkforwarder:
     package: 'splunkforwarder'
 ```
 
-### splunkforwarder:lookup:server
+### splunkforwarder:lookup:service
 
 The `service` parameter is the name of the Windows service for the Splunk
 Universal Forwarder.

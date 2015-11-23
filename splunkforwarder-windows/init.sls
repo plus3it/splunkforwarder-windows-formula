@@ -10,18 +10,18 @@ splunkforwarder-install:
 
 splunkforwarder-deploymentclient.conf:
   file.managed:
-    - name: {{ splunkforwarder.deploymentclient }}
-    - source: {{ splunkforwarder.deploymentclient_source }}
-    - source_hash: {{ splunkforwarder.deploymentclient_source_hash }}
+    - name: {{ splunkforwarder.deploymentclient.conf }}
+    - source: {{ splunkforwarder.deploymentclient.source }}
+    - source_hash: {{ splunkforwarder.deploymentclient.source_hash }}
     - makedirs: True
     - watch_in:
       - service: splunkforwarder-service
 
 splunkforwarder-log-local.cfg:
   file.managed:
-    - name: {{ splunkforwarder.log_local }}
-    - source: {{ splunkforwarder.log_local_source }}
-    - source_hash: {{ splunkforwarder.log_local_source_hash }}
+    - name: {{ splunkforwarder.log_local.conf }}
+    - source: {{ splunkforwarder.log_local.source }}
+    - source_hash: {{ splunkforwarder.log_local.source_hash }}
     - makedirs: True
     - watch_in:
       - service: splunkforwarder-service

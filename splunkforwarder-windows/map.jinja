@@ -4,27 +4,35 @@
 # Initialize a map of default values
 {% load_yaml as defaults %}
 package: 'splunkforwarder'
-deploymentclient: programfiles ~ '\\SplunkUniversalForwarder\\etc\\system\\local\\deploymentclient.conf'
-deploymentclient_source: ''
-deploymentclient_source_hash: ''
-log_local: programfiles ~ '\\SplunkUniversalForwarder\\etc\\log-local.cfg'
-log_local_source: ''
-log_local_source_hash: ''
 service: 'SplunkForwarder'
+deploymentclient:
+  conf: >-
+    '{{ programfiles }}\SplunkUniversalForwarder\etc\system\local\deploymentclient.conf'
+  source: ''
+  source_hash: ''
+log_local:
+  conf: >-
+    '{{ programfiles }}\SplunkUniversalForwarder\etc\log-local.cfg'
+  source: ''
+  source_hash: ''
 {% endload %}
 
 # Define the splunkforwarder map, merging pillar and default values
-{% set splunkforwarder = {
-    'package' : salt['pillar.get'](
-        'splunkforwarder:lookup:package',
-        defaults.package),
-    'deploymentclient' : defaults.deploymentclient,
-    'deploymentclient_source' : pillar['splunkforwarder']['lookup']['deploymentclient']['source'],
-    'deploymentclient_source_hash' : pillar['splunkforwarder']['lookup']['deploymentclient']['source_hash'],
-    'log_local' : defaults.log_local,
-    'log_local_source' : pillar['splunkforwarder']['lookup']['log_local']['source'],
-    'log_local_source_hash' : pillar['splunkforwarder']['lookup']['log_local']['source_hash'],
-    'service' : salt['pillar.get'](
-        'splunkforwarder:lookup:service',
-        defaults.service),
-} %}
+{% set splunkforwarder = salt['pillar.get'](
+    'splunkforwarder:lookup',
+    default=defaults,
+    merge=True) %}
+
+# Update splunkforwarder.deploymentclient map with mandatory pillar settings
+{% do splunkforwarder.deploymentclient.update({
+    'conf' : defaults.deploymentclient.conf,
+    'source' : pillar['splunkforwarder']['lookup']['deploymentclient']['source'],
+    'source_hash' : pillar['splunkforwarder']['lookup']['deploymentclient']['source_hash'],
+}) %}
+
+# Update splunkforwarder.log_local map with mandatory pillar settings
+{% do splunkforwarder.log_local.update({
+    'conf' : defaults.log_local.conf,
+    'source' : pillar['splunkforwarder']['lookup']['log_local']['source'],
+    'source_hash' : pillar['splunkforwarder']['lookup']['log_local']['source_hash'],
+}) %}
