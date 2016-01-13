@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/plus3it/scc-formula.svg?branch=master)](https://travis-ci.org/plus3it/scc-formula)
+
 # splunkforwarder-windows-formula
 Salt formula to install and configure the Splunk Universal Forwarder on
 Windows. This formula requires a winrepo package definition containing the
