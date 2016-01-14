@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/plus3it/scc-formula.svg?branch=master)](https://travis-ci.org/plus3it/scc-formula)
+[![Build Status](https://travis-ci.org/plus3it/splunkfowarder-windows-formula.svg?branch=master)](https://travis-ci.org/plus3it/splunkfowarder-windows-formula)
 
 # splunkforwarder-windows-formula
 Salt formula to install and configure the Splunk Universal Forwarder on
